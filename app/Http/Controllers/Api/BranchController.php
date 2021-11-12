@@ -32,14 +32,10 @@ class BranchController extends Controller
      */
     public function store(CreateBranchRequest $request)
     {
-        /*$branch = new Branch();
-        $branch->name = $request->input('name');
-        $branch->save();*/
-
         $input = $request->validated();
         $branch = Branch::create($input);
 
-        return response()->json(['message' => 'Datos obtenidos por json', 'data' => $branch]); //Arreglo con 2 indices (message y data)
+        return response()->json(['message' => 'Datos obtenidos por json', 'data' => $branch]);
     }
 
     /**
@@ -51,14 +47,6 @@ class BranchController extends Controller
     public function show(Branch $branch)
     {
         return response()->json(['message' => 'Datos obtenidos', 'data' => $branch]);
-
-        /*
-        $branch = Branch::find($id);
-        if($branch){
-            return response()->json(['message' => 'Datos obtenidos', 'data' => $branch]);
-        }
-        return response()->json(['message' => 'El ID no fue encontrado'], '404');
-        */
     }
 
     /**

@@ -30,6 +30,10 @@ class Product extends Model
             $product = $product->where('name', $input['name']);
         }
 
+        if (isset($input['branch_id'])){
+            $product = $product->where('branch_id', $input['branch_id']);
+        }
+
 
         return $product->get();
     }
