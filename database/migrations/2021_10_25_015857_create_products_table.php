@@ -18,12 +18,13 @@ class CreateProductsTable extends Migration
             $table->integer('code');
             $table->string('name',200);
             $table->string('category', 100);
-            $table->string('description', 200)->nullable();
+            $table->string('description', 200);
             $table->integer('amount');
             $table->integer('price');
-            $table->foreignId('branch_id')->constrained();
+            $table->integer('branch_id');
+            $table->string('branch_name');
             $table->timestamps();
-            $table->softDeletes();
+            $table->SoftDeletes();
         });
     }
 

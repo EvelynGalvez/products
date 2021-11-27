@@ -24,14 +24,14 @@ class CreateProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'code' => 'required|numeric|max:999',
+            'code' => 'required|numeric',
             'name'=> 'required|string|max:200',
             'category' => 'required|string|max:100',
-            'description' => 'nullable|string|max:200',
-            'amount' => 'required|numeric|max:9999',
-            'price' => 'required|numeric|max:9999999',
-            'branch_id' => 'required|numeric|max:99'
-
+            'description' => 'required|string|max:200',
+            'amount' => 'required|numeric',
+            'price' => 'required|numeric',
+            'branch_id' => 'required|numeric',
+            'branch_name' => 'required|string|max:200'
         ];
     }
 }

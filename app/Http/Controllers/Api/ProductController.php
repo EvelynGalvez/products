@@ -9,6 +9,7 @@ use App\Http\Requests\Api\UpdateProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
+
 class ProductController extends Controller
 {
     /**
@@ -22,6 +23,19 @@ class ProductController extends Controller
         $rows = Product::search($input);
 
         return response()->json(['message' => 'Datos obtenidos por json', 'data' => $rows]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function deleted(IndexProductRequest $request)
+    {
+        $input = $request->validated();
+        $rows = Product::search($input, true);
+
+        return response()->json(['message' => 'Los siguientes registros han sido eliminado lógicamente', 'data' => $rows]);
     }
 
     /**
@@ -70,8 +84,40 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        //
+        $product -> delete();
+        return response()->json(['message' => 'Producto eliminado, ID '. $product->id], 202);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function forceDestroy(Product $product)
+    {
+        $product -> forceDelete();
+        return response()->json(['message' => 'Producto eliminado, ID '. $product->id], 202);
+    }
+
+    public function deleteByFilters(IndexProductRequest $request, $deleteType)
+    {
+
+        //0: borrado lógico   1: borrado físico
+
+        if(in_array($deleteType, [0,1])){
+            $input = $request->validated();
+            $response = Product::destroyByFilters($input, $deleteType);
+
+            if(!$response){
+                return response()->json(['messaje'=>'Error al eliminar'], 422);
+            }
+
+            return response()->json(['message' => 'Datos eliminados'], 200);
+        }
+
+        return response()->json(['messaje'=>'Error en parámetros de entrada'], 422);
     }
 }

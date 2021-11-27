@@ -24,9 +24,9 @@ class IndexProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'code' => 'nullable|sometimes|numeric|max:999',
+            'code' => 'nullable|sometimes|numeric',
             'name'=> 'nullable|sometimes|string|max:200',
-            'branch_id' => 'nullable|sometimes|numeric|max:99'
+            'branch_id' => 'nullable|sometimes|numeric'
         ];
     }
 }

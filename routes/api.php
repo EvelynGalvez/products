@@ -18,5 +18,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+
+Route::get('products/deleted',[\App\Http\Controllers\Api\ProductController::class, 'deleted'])->name('products.deleted');
+Route::delete('products/{deleteType}/byFilters', [\App\Http\Controllers\Api\ProductController::class, 'deleteByFilters'])->name('products.deleteByFilters');
+Route::delete('products/{product}/force',[\App\Http\Controllers\Api\ProductController::class, 'forceDestroy'])->name('products.forceDestroy');
 Route::resource('products', \App\Http\Controllers\Api\ProductController::class);
-Route::resource('branches', \App\Http\Controllers\Api\BranchController::class);
+
+
+
